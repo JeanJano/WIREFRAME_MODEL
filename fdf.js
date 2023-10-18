@@ -1,3 +1,18 @@
+document.getElementById("fileInput").addEventListener("change", function (event) {
+	const file = event.target.files[0];
+	const reader = new FileReader();
+	reader.onload = function (event) {
+		const contents = event.target.result;
+		const lines = contents.split("\n");
+		const output = document.getElementById("output");
+		for (const line of lines) {
+			console.log(line);
+			output.textContent += line + "\n";
+		}
+	};
+	reader.readAsText(file);
+});
+
 const canvas = document.getElementById('pixelCanvas');
 
 const ctx = canvas.getContext('2d');
@@ -12,6 +27,13 @@ let press = 0;
 let x_axis = 10;
 let y_axis = 10;
 let zoom = 20;
+
+class Map {
+	point = [];
+	color = [];
+	constructor() {
+	};
+}
 
 let array = [
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -30,6 +52,8 @@ function drawBackground() {
 	ctx.fillStyle = "black";
 	ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
+
+// import {rotateX, rotateY, rotateZ} from './test.js';
 
 function rotateX(x, y, z) {
     return ([
