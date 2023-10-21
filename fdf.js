@@ -11,7 +11,7 @@ let teta = 0;
 let press = 0;
 let x_axis = 0;
 let y_axis = 0;
-let zoom = 20;
+let zoom = 4;
 
 class Map {
 	point = [];
@@ -77,7 +77,7 @@ class Map {
 
 	log() {
 		console.log(x_axis);
-		for (let i = 0; i < x_axis; i++) {
+		for (let i = 0; i < x_axis - 1; i++) {
 			for (let j = 0; j < y_axis; j++) {
 				console.log(this.point[i][j] + " " + this.color[i][j]);
 			}
@@ -136,7 +136,7 @@ function rotateZ(x, y, z) {
     ]);
 }
 
-function handleKeyPress(event) {
+function handleKeyPress(event, point) {
 	// rotation: q w e 
     if (event.keyCode === 81 || event.keyCode === 87 || event.keyCode === 69 || event.keyCode === 65 || event.keyCode === 83 || event.keyCode === 68) {
 		if (event.keyCode === 81 || event.keyCode === 65)
@@ -149,8 +149,6 @@ function handleKeyPress(event) {
 			teta += 0.1;
 		else
 			teta -= 0.1;
-		drawBackground();
-		drawAll();
     }
 	// zoom: + -
 	if (event.keyCode === 189 || event.keyCode === 187) {
@@ -159,8 +157,6 @@ function handleKeyPress(event) {
 		else
 			zoom++;
 		press = 5;
-		drawBackground();
-		drawAll();
 	}
 	// moove: arrow
 	if (event.keyCode === 37 || event.keyCode === 39) {
@@ -168,17 +164,15 @@ function handleKeyPress(event) {
 			x_axis -= 2;
 		else
 			x_axis += 2;
-		drawBackground();
-		drawAll();
 	}
 	if (event.keyCode === 38 || event.keyCode === 40) {
 		if (event.keyCode === 38)
 			y_axis -= 2;
 		else
 			y_axis += 2;
-		drawBackground();
-		drawAll();
 	}
+	drawBackground();
+	drawAll();
 }
 
 function rotation(x, y, z) {
@@ -195,9 +189,11 @@ function rotation(x, y, z) {
 		return ([x, y, z]);
 }
 
-function calcIso(x, y, map) {
+function calcIso(x, y) {
 	let res = [];
 	let point = map.getPoint();
+	if (typeof point[x][y] == undefined)
+		point[x][y] = 0;
 	let vector = rotation(x, y, point[x][y]);
 
 	res[0] = (Math.sqrt(2)/2) * (vector[0] - vector[1]);
@@ -208,24 +204,24 @@ function calcIso(x, y, map) {
 	return (res);
 }
 
-function drawAll(map) {
+function drawAll() {
 	let transform1;
 	let transform2;
-	for (let i = 0; i < x_axis; i++) {
+	for (let i = 0; i < x_axis - 1; i++) {
 		for (let j = 0; j < y_axis; j++) {
-			transform1 = calcIso(i, j, map);
+			transform1 = calcIso(i, j);
 			if (i < x_axis - 1) {
-				transform2 = calcIso(i + 1, j, map);
+				transform2 = calcIso(i + 1, j);
 				drawLine(transform1, transform2);
 			}
-			transform2 = calcIso(i, j + 1, map);
+			transform2 = calcIso(i, j + 1);
 			drawLine(transform1, transform2);
 		}
 	}
 }
 
 const map = new Map(() => {
-	// map.log();
+	map.log();
 	drawBackground();
-	drawAll(map);
+	drawAll();
 });
