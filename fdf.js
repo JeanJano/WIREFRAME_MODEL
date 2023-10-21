@@ -5,17 +5,18 @@ const ctx = canvas.getContext('2d');
 ctx.strokeStyle = 'red';
 ctx.lineWidth = 1;
 
-const height = 10;
-const width = 10;
+let height = 0;
+let width = [];
 let teta = 0;
 let press = 0;
-let x_axis = 0;
-let y_axis = 0;
+let x_axis = 10;
+let y_axis = 10;
 let zoom = 4;
 
 class Map {
 	point = [];
 	color = [];
+
 	constructor(callback) {
 		document.getElementById("fileInput").addEventListener("change", (event) => {
 			const file = event.target.files[0];
@@ -26,40 +27,24 @@ class Map {
 			  const output = document.getElementById("output");
 			  
 			  for (const line of lines) {
-				// console.log(line);
 				output.textContent += line + "\n";
 				let split_line = line.split(" ");
 				
-				this.point[x_axis] = this.point[x_axis] || [];
-				this.color[x_axis] = this.color[x_axis] || [];
-				
+				this.point[height] = this.point[height] || [];
+				this.color[height] = this.color[height] || [];
+				width[height] = 0;
 				for (let y = 0; y < split_line.length; y++) {
 				  let split_val = split_line[y].split(",");
-				//   console.log(split_val[0]);
-				  this.point[x_axis][y] = split_val[0];
+				  this.point[height][y] = split_val[0];
 				  if (split_val.length === 1) {
-					this.color[x_axis][y] = '0x0000FF';
+					this.color[height][y] = '0x1290AF';
 				  } else {
-					this.color[x_axis][y] = split_val[1];
+					this.color[height][y] = split_val[1];
 				  }
+				  width[height] += 1;
 				}
-				
-				if (x_axis === 0) {
-				  y_axis = split_line.length;
-				}
-				
-				x_axis++;
+				height++;
 			  }
-			  
-			  // Trim the arrays to the actual size
-			  this.point.length = x_axis;
-			  this.color.length = x_axis;
-			  this.point.forEach(row => {
-				row.length = y_axis;
-			  });
-			  this.color.forEach(row => {
-				row.length = y_axis;
-			  });
 			  callback();
 			};
 			
@@ -67,18 +52,22 @@ class Map {
 		  });
 	};
 
-	getPoint() {
-		return (this.point);
+	getPoint(x, y) {
+		return (this.point[x][y]);
 	}
 
-	getColor() {
-		return (this.color);
+	getColor(x, y) {
+		return (
+			"#" +
+			this.color[x][y].substr(2, 2) +
+			this.color[x][y].substr(4, 2) +
+			this.color[x][y].substr(6, 2));
 	}
 
 	log() {
-		console.log(x_axis);
-		for (let i = 0; i < x_axis - 1; i++) {
-			for (let j = 0; j < y_axis; j++) {
+		console.log(height);
+		for (let i = 0; i < height - 1; i++) {
+			for (let j = 0; j < width[i]; j++) {
 				console.log(this.point[i][j] + " " + this.color[i][j]);
 			}
 		}
@@ -178,7 +167,7 @@ function handleKeyPress(event, point) {
 function rotation(x, y, z) {
 	window.addEventListener('keydown', handleKeyPress);
 	x -= height / 2;
-	y -= width / 2;
+	// y -= width[height] / 2;
 	if (press === 1)
 		return (rotateX(x, y, z));
 	else if (press === 2)
@@ -191,10 +180,7 @@ function rotation(x, y, z) {
 
 function calcIso(x, y) {
 	let res = [];
-	let point = map.getPoint();
-	if (typeof point[x][y] == undefined)
-		point[x][y] = 0;
-	let vector = rotation(x, y, point[x][y]);
+	let vector = rotation(x, y, map.getPoint(x, y));
 
 	res[0] = (Math.sqrt(2)/2) * (vector[0] - vector[1]);
 	res[1] = (-Math.sqrt(2)/3) * vector[2] - ((1/Math.sqrt(6)) * -(vector[0] + vector[1]));
@@ -205,17 +191,19 @@ function calcIso(x, y) {
 }
 
 function drawAll() {
-	let transform1;
-	let transform2;
-	for (let i = 0; i < x_axis - 1; i++) {
-		for (let j = 0; j < y_axis; j++) {
-			transform1 = calcIso(i, j);
-			if (i < x_axis - 1) {
-				transform2 = calcIso(i + 1, j);
-				drawLine(transform1, transform2);
+	let calcul1;
+	let calcul2;
+	for (let i = 0; i < height; i++) {
+		for (let j = 0; j < width[i]; j++) {
+			calcul1 = calcIso(i, j);
+			console.log(map.getColor(i, j));
+			ctx.strokeStyle = map.getColor(i, j);
+			if (i < height - 1) {
+				calcul2 = calcIso(i + 1, j);
+				drawLine(calcul1, calcul2);
 			}
-			transform2 = calcIso(i, j + 1);
-			drawLine(transform1, transform2);
+			calcul2 = calcIso(i, j + 1);
+			drawLine(calcul1, calcul2);
 		}
 	}
 }
