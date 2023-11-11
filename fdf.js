@@ -1,8 +1,5 @@
 const canvas = document.getElementById('pixelCanvas');
-
 const ctx = canvas.getContext('2d');
-
-ctx.strokeStyle = 'red';
 ctx.lineWidth = 1;
 
 let height = 0;
@@ -27,9 +24,7 @@ class Map {
 			  const output = document.getElementById("output");
 			  
 			  for (const line of lines) {
-				output.textContent += line + "\n";
 				let split_line = line.split(" ");
-				
 				this.point[height] = this.point[height] || [];
 				this.color[height] = this.color[height] || [];
 				width[height] = 0;
@@ -74,19 +69,6 @@ class Map {
 	}
 }
 
-// let array = [
-// 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-// 	[0, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-// 	[0, 1, 2, 2, 2, 2, 2, 2, 1, 0],
-// 	[0, 1, 2, 3, 3, 3, 3, 2, 1, 0],
-// 	[0, 1, 2, 3, 0, 0, 3, 2, 1, 0],
-// 	[0, 1, 2, 3, 0, 0, 3, 2, 1, 0],
-// 	[0, 1, 2, 3, 3, 3, 3, 2, 1, 0],
-// 	[0, 1, 2, 2, 2, 2, 2, 2, 1, 0],
-// 	[0, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-// 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-// ];
-
 function drawBackground() {
 	ctx.fillStyle = "black";
 	ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -125,7 +107,7 @@ function rotateZ(x, y, z) {
     ]);
 }
 
-function handleKeyPress(event, point) {
+function handleKeyPress(event) {
 	// rotation: q w e 
     if (event.keyCode === 81 || event.keyCode === 87 || event.keyCode === 69 || event.keyCode === 65 || event.keyCode === 83 || event.keyCode === 68) {
 		if (event.keyCode === 81 || event.keyCode === 65)
@@ -167,7 +149,7 @@ function handleKeyPress(event, point) {
 function rotation(x, y, z) {
 	window.addEventListener('keydown', handleKeyPress);
 	x -= height / 2;
-	// y -= width[height] / 2;
+	y -= height / 2;
 	if (press === 1)
 		return (rotateX(x, y, z));
 	else if (press === 2)
@@ -193,23 +175,22 @@ function calcIso(x, y) {
 function drawAll() {
 	let calcul1;
 	let calcul2;
-	for (let i = 0; i < height; i++) {
-		for (let j = 0; j < width[i]; j++) {
-			calcul1 = calcIso(i, j);
-			console.log(map.getColor(i, j));
-			ctx.strokeStyle = map.getColor(i, j);
-			if (i < height - 1) {
-				calcul2 = calcIso(i + 1, j);
+	for (let x = 0; x < height; x++) {
+		for (let y = 0; y < width[x]; y++) {
+			calcul1 = calcIso(x, y);
+			ctx.strokeStyle = map.getColor(x, y);
+			if (x < height - 1) {
+				calcul2 = calcIso(x + 1, y);
 				drawLine(calcul1, calcul2);
 			}
-			calcul2 = calcIso(i, j + 1);
+			calcul2 = calcIso(x, y + 1);
 			drawLine(calcul1, calcul2);
 		}
 	}
 }
 
 const map = new Map(() => {
-	map.log();
+	// map.log();
 	drawBackground();
 	drawAll();
 });

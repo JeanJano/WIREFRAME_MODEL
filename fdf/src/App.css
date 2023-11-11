@@ -1,0 +1,16 @@
+body {
+  background-color: #FCF5C7;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
+}
+
+.header {
+  text-align: center;
+  color: #40367A;
+  font-size: 80px;
+  font-family: "Roboto Mono";
+  text-shadow: 0px 4px 4px rgb(179, 167, 167);
+}

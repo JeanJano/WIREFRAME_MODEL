@@ -1,0 +1,20 @@
+.buttonInput {
+    background-color: #FAF5D7;
+    color: #40367A;
+    border: 1px solid #8980BA;
+    border-radius: 20px;
+    text-align: center;
+    font-family: "Roboto Mono";
+    font-size: 40px;
+    width: 60vw;
+    padding: 10px 20px;
+    margin: auto;
+}
+
+input {
+    display: none;
+}
+
+label {
+    display: block;
+}
