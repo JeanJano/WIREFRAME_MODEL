@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../button.css'
+import '../grid.css'
 
 const GridButton = () => {
     const grid = [
@@ -9,7 +10,7 @@ const GridButton = () => {
         {id: 4, content: 'flat'},
     ];
     return (
-        <div>
+        <div className='grid-container'>
             {grid.map((item) => (
                 <div key={item.id} className='grid-item'>
                     {item.content}
