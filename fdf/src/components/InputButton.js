@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../button.css'
+import '../css/button.css'
 
 const InputButton = () => {
     const [selectedFile, setSelectedFile] = useState(null);
@@ -10,7 +10,7 @@ const InputButton = () => {
     };
 
     return (
-        <div className='buttonInput'>
+        <div className='buttonInput button'>
             <label htmlFor="fileInput">Import your map</label>
             <input type="file" id="fileInput" accept=".fdf" onChange={handleFileChange} />
         </div>

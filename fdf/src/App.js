@@ -1,5 +1,5 @@
 import logo from './logo.svg';
-import './App.css';
+import './css/App.css';
 import InputButton from './components/InputButton';
 import GridButton from './components/GridButton';
 
