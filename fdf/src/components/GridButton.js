@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
 import '../css/button.css'
 import '../css/grid.css'
 
-const GridButton = () => {
+const GridButton = ({ handleClick }) => {
     const grid = [
         {id: 1, content: 'pyramide'},
         {id: 2, content: 'pylone'},
@@ -12,9 +11,13 @@ const GridButton = () => {
     return (
         <div className='grid-container'>
             {grid.map((item) => (
-                <div key={item.id} className='grid-item button'>
-                    {item.content}
-                </div>
+                <button
+                    key={item.id}
+                    className='grid-item button'
+                    onClick={() => handleClick(item.content)}
+                >
+                 {item.content}
+                </button>
             ))}
         </div>
     );
