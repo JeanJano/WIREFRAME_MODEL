@@ -1,40 +1,39 @@
-import { height, teta, press} from './utils';
 import handleKeyPress from './key';
 
-function rotateX(x, y, z) {
+function rotateX(x, y, z, utils) {
     return ([
         x,
-        Math.cos(teta) * y - Math.sin(teta) * z,
-        Math.sin(teta) * y + Math.cos(teta) * z
+        Math.cos(utils.getTeta()) * y - Math.sin(utils.getTeta()) * z,
+        Math.sin(utils.getTeta()) * y + Math.cos(utils.getTeta()) * z
     ]);
 }
 
-function rotateY(x, y, z) {
+function rotateY(x, y, z, utils) {
     return ([
-        Math.cos(teta) * x + Math.sin(teta) * z,
+        Math.cos(utils.getTeta()) * x + Math.sin(utils.getTeta()) * z,
         y,
-        -Math.sin(teta) * x + Math.cos(teta) * z
+        -Math.sin(utils.getTeta()) * x + Math.cos(utils.getTeta()) * z
     ]);
 }
 
-function rotateZ(x, y, z) {
+function rotateZ(x, y, z, utils) {
     return ([
-        Math.cos(teta) * x - Math.sin(teta) * y,
-        Math.sin(teta) * x + Math.cos(teta) * y,
+        Math.cos(utils.getTeta()) * x - Math.sin(utils.getTeta()) * y,
+        Math.sin(utils.getTeta()) * x + Math.cos(utils.getTeta()) * y,
         z
     ]);
 }
 
-function rotate(x, y, z) {
+function rotate(x, y, z, utils) {
     window.addEventListener('keydown', handleKeyPress);
-    x -= height / 2;
-    y -= height / 2;
-    if (press === 1)
-        return (rotateX(x, y, z));
-    else if (press === 2)
-        return (rotateY(x, y, z));
-    else if (press === 3)
-        return (rotateZ(x, y, z));
+    x -= utils.getHeight() / 2;
+    y -= utils.getHeight() / 2;
+    if (utils.getPress() === 1)
+        return (rotateX(x, y, z, utils));
+    else if (utils.getPress() === 2)
+        return (rotateY(x, y, z, utils));
+    else if (utils.getPress() === 3)
+        return (rotateZ(x, y, z, utils));
     else
         return ([x, y, z]);
 }

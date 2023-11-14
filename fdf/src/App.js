@@ -18,7 +18,7 @@ const App = () => {
     <div>
       {
         redirectToDrawPage ? (
-          <Draw map={selectedMap}/>
+          <Draw input={selectedMap}/>
         ) : (
           <div>
             <h1 className="header">WIREFRAME</h1>

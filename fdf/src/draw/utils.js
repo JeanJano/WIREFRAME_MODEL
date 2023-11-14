@@ -1,14 +1,70 @@
-import { useRef } from 'react'
+class Utils {
+    height = 0;
+    width = [];
+    teta = 0;
+    press = 0;
+    x_axis = 10;
+    y_axis = 10;
+    zoom = 4;
+    
+    constructor() {}
+    getHeight() {
+        return (this.height);
+    }
+    incrHeight(incr) {
+        this.height += incr;
+    }
+    getWidth(index) {
+        return (this.width[index]);
+    }
+    setWidth(index, val) {
+        this.width[index] = val;
+    }
+    incrWidth(index, incr) {
+        this.width[index] += incr;
+    }
+    getTeta() {
+        return (this.teta);
+    }
+    incrTetaPlus(incr) {
+        this.teta += incr;
+    }
+    incrTetaLess(incr) {
+        this.teta -= incr;
+    }
+    getPress() {
+        return (this.press);
+    }
+    setPress(val) {
+        this.press = val;
+    }
+    getX_axis() {
+        return (this.x_axis);
+    }
+    incrX_axisPlus(incr) {
+        this.x_axis += incr;
+    }
+    incrX_axisLess(incr) {
+        this.x_axis -= incr;
+    }
+    getY_axis() {
+        return (this.y_axis);
+    }
+    incrY_axisPlus(incr) {
+        this.y_axis += incr;
+    }
+    incrY_axisLess(incr) {
+        this.y_axis -= incr;
+    }
+    getZoom() {
+        return (this.zoom);
+    }
+    incrZoomPlus(incr) {
+        this.zoom += incr;
+    }
+    incrZoomLess(incr) {
+        this.zoom -= incr;
+    }
+}
 
-let height = 0;
-let width = [];
-let teta = 0;
-let press = 0;
-let x_axis = 10;
-let y_axis = 10;
-let zoom = 4;
-// const canvasRef = useRef(null);
-// const canvas = canvasRef.current;
-// const ctx = canvas.getContext('2d');
-
-export {height, width, teta, press, x_axis, y_axis, zoom};
+export default Utils;
