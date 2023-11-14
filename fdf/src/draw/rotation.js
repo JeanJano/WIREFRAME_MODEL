@@ -1,5 +1,3 @@
-import handleKeyPress from './key';
-
 function rotateX(x, y, z, utils) {
     return ([
         x,
@@ -25,7 +23,6 @@ function rotateZ(x, y, z, utils) {
 }
 
 function rotate(x, y, z, utils) {
-    window.addEventListener('keydown', handleKeyPress);
     x -= utils.getHeight() / 2;
     y -= utils.getHeight() / 2;
     if (utils.getPress() === 1)

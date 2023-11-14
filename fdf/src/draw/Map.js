@@ -3,11 +3,9 @@ class Map {
   color = [];
 
   constructor(fileContent, utils) {
-    // console.log(fileContent);
     const lines = fileContent.split("\n");
 
     for (const line of lines) {
-      // console.log(line);
       let split_line = line.split(" ");
       this.point[utils.getHeight()] = this.point[utils.getHeight()] || [];
       this.color[utils.getHeight()] = this.color[utils.getHeight()] || [];

@@ -3,6 +3,7 @@ import React, { useRef, useEffect, useState } from 'react'
 import Map from './Map';
 import {drawAll, drawBackground} from './draw_function';
 import Utils from './utils';
+import KeyPress from './key';
 
 const Draw = ({ input }) => {
     const canvasRef = useRef(null);
@@ -28,15 +29,21 @@ const Draw = ({ input }) => {
 
         let myMap;
         let utils = new Utils();
+        const handleKeyPress = (event) => {
+            KeyPress(event, utils, ctx, canvas, myMap);
+        }
+        window.addEventListener('keydown', handleKeyPress);
         const initializeMap = () => {
             myMap = new Map(fileContent, utils);
-            // console.log(fileContent);
             myMap.log(utils);
             drawBackground(ctx, canvas);
             drawAll(myMap, ctx, utils);
         };
         initializeMap();
-
+        
+        return () => {
+            window.removeEventListener('keydown', handleKeyPress);
+          };
     }, [fileContent]);
 
     return (
