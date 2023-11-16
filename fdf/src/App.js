@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './css/App.css';
 import InputButton from './components/InputButton';
 import GridButton from './components/GridButton';
@@ -14,6 +13,11 @@ const App = () => {
       setRedirectToDrawPage(true);
   };
 
+  const handleFileChange = (content) => {
+    setSelectedMap(content);
+    setRedirectToDrawPage(true);
+  }
+
   return (
     <div>
       {
@@ -22,7 +26,7 @@ const App = () => {
         ) : (
           <div>
             <h1 className="header">WIREFRAME</h1>
-            <InputButton />
+            <InputButton handleFileChange={handleFileChange} />
             <GridButton handleClick={handleClick} />
           </div>
         )}

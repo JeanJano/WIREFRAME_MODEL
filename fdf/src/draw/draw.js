@@ -12,6 +12,10 @@ const Draw = ({ input }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
+                if (input != 'pyramide' && input != 'pylone' && input != 'elem2' && input != 'flat') {
+                    setFileContent(input);
+                    return ;
+                }
               const response = await fetch(`/${input}.fdf`);
               const text = await response.text();
               setFileContent(text);
