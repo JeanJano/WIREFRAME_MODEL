@@ -3,9 +3,9 @@ class Utils {
     width = [];
     teta = 0;
     press = 0;
-    x_axis = 10;
-    y_axis = 10;
-    zoom = 4;
+    x_axis = 25;
+    y_axis = 25;
+    zoom = 20;
     
     constructor() {}
     getHeight() {

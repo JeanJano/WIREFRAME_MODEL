@@ -12,10 +12,10 @@ const Draw = ({ input }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                if (input != 'pyramide' && input != 'pylone' && input != 'elem2' && input != 'flat') {
-                    setFileContent(input);
-                    return ;
-                }
+              if (input !== 'pyramide' && input !== 'pylone' && input !== 'elem2' && input !== 'flat') {
+                setFileContent(input);
+                return ;
+              }
               const response = await fetch(`/${input}.fdf`);
               const text = await response.text();
               setFileContent(text);
@@ -27,6 +27,8 @@ const Draw = ({ input }) => {
 
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
+        canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth;
         ctx.fillStyle = 'blue';
         ctx.fillRect(10, 10, 50, 50);
         ctx.lineWidth = 1;
@@ -46,14 +48,15 @@ const Draw = ({ input }) => {
         initializeMap();
         
         return () => {
+            canvas.width = 0;
+            canvas.height = 0;
             window.removeEventListener('keydown', handleKeyPress);
           };
     }, [fileContent]);
 
     return (
         <div className='draw'>
-            <h1 className='write'>WIREFRAME</h1>
-            <canvas ref={canvasRef} width={300} height={300} />
+            <canvas ref={canvasRef} />
         </div>
     );
 }
