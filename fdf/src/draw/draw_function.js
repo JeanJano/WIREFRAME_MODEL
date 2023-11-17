@@ -1,7 +1,7 @@
 import rotate from './rotation.js';
 
 function drawBackground(ctx, canvas) {
-    ctx.fillStyle = "black";
+    ctx.fillStyle = "#003049";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 

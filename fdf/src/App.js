@@ -1,35 +1,33 @@
 import './css/App.css';
-import InputButton from './components/InputButton';
-import GridButton from './components/GridButton';
-import Draw from './draw/draw';
+import Draw from './components/Draw';
 import React, { useState } from 'react';
+import Popup from './components/Popup'
 
 const App = () => {
-  const [redirectToDrawPage, setRedirectToDrawPage] = useState(false);
-  const [selectedMap, setSelectedMap] = useState(null);
+  const [selectedMap, setSelectedMap] = useState("pyramide");
+  const [popupVisible, setPopupVisible] = useState(false);
 
-  const handleClick = (content) => {
-      setSelectedMap(content);
-      setRedirectToDrawPage(true);
+  // const handleClick = (content) => {
+  //     setSelectedMap(content);
+  // };
+
+  const handleMouseMove = (e) => {
+      const windowHeight = window.innerHeight;
+      const bottomThreshold = windowHeight * 0.9;
+
+      if (e.clientY > bottomThreshold) {
+          setPopupVisible(true);
+      }
+      else {
+          setPopupVisible(false);
+      }
   };
 
-  const handleFileChange = (content) => {
-    setSelectedMap(content);
-    setRedirectToDrawPage(true);
-  }
-
   return (
-    <div>
-      {
-        redirectToDrawPage ? (
-          <Draw input={selectedMap}/>
-        ) : (
-          <div>
-            <h1 className="header">WIREFRAME</h1>
-            <InputButton handleFileChange={handleFileChange} />
-            <GridButton handleClick={handleClick} />
-          </div>
-        )}
+    <div onMouseMove={handleMouseMove} >
+      <h1 className='header'>WIREFRAME</h1>
+      <Draw input={selectedMap} />
+      <Popup popupVisible={popupVisible} />
     </div>
   );
 }

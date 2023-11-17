@@ -16,7 +16,7 @@ class Map {
         this.point[this.point.length - 1][y] = split_val[0];
 
         if (split_val.length === 1) {
-          this.color[this.color.length - 1][y] = '0x1290AF';
+          this.color[this.color.length - 1][y] = '0xD62828';
         } else {
           this.color[this.color.length - 1][y] = split_val[1];
         }

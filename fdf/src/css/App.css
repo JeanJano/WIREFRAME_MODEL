@@ -1,16 +1,19 @@
 body {
-  background-color: #FCF5C7;
-  position: absolute;
-  top: 0px;
-  bottom: 0px;
-  right: 0px;
-  left: 0px;
+  background-color: #003049;
+}
+
+canvas {
+  display: block;
+  z-index: 0;
+  position: fixed;
 }
 
 .header {
+  position: absolute;
+  top: 10px;
+  right: 5vw;
   text-align: center;
-  color: #40367A;
-  font-size: 80px;
-  font-family: "Roboto Mono";
-  text-shadow: 0px 4px 4px rgb(179, 167, 167);
+  color: white;
+  font-size: 40px;
+  font-weight: bold;
 }

@@ -1,9 +1,9 @@
 import '../css/draw.css'
 import React, { useRef, useEffect, useState } from 'react'
-import Map from './Map';
-import {drawAll, drawBackground} from './draw_function';
-import Utils from './utils';
-import KeyPress from './key';
+import Map from '../draw/Map';
+import {drawAll, drawBackground} from '../draw/draw_function';
+import Utils from '../draw/utils';
+import KeyPress from '../draw/key';
 
 const Draw = ({ input }) => {
     const canvasRef = useRef(null);
@@ -29,8 +29,6 @@ const Draw = ({ input }) => {
         const ctx = canvas.getContext('2d');
         canvas.height = window.innerHeight;
         canvas.width = window.innerWidth;
-        ctx.fillStyle = 'blue';
-        ctx.fillRect(10, 10, 50, 50);
         ctx.lineWidth = 1;
 
         let myMap;
@@ -41,7 +39,7 @@ const Draw = ({ input }) => {
         window.addEventListener('keydown', handleKeyPress);
         const initializeMap = () => {
             myMap = new Map(fileContent, utils);
-            myMap.log(utils);
+            // myMap.log(utils);
             drawBackground(ctx, canvas);
             drawAll(myMap, ctx, utils);
         };

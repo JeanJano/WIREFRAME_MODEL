@@ -1,0 +1,22 @@
+
+
+.page-container {
+    position: absolute;
+}
+
+.popup {
+    z-index: 1;
+    position: fixed;
+    bottom: 0;
+    width: 90vw;
+    height: 80px;
+    background-color: #db5618;
+    transform: translateY(100%); 
+    transition: transform 300ms ease-in;
+    border-radius: 20px;
+}
+
+.popup.visible {
+    transform: translateY(0%); 
+    transition: transform 300ms ease-in;
+}
