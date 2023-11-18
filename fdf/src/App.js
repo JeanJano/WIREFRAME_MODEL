@@ -7,13 +7,13 @@ const App = () => {
   const [selectedMap, setSelectedMap] = useState("pyramide");
   const [popupVisible, setPopupVisible] = useState(false);
 
-  // const handleClick = (content) => {
-  //     setSelectedMap(content);
-  // };
+  const handleClick = (content) => {
+      setSelectedMap(content);
+  };
 
   const handleMouseMove = (e) => {
       const windowHeight = window.innerHeight;
-      const bottomThreshold = windowHeight * 0.9;
+      const bottomThreshold = windowHeight * 0.8;
 
       if (e.clientY > bottomThreshold) {
           setPopupVisible(true);
@@ -27,7 +27,7 @@ const App = () => {
     <div onMouseMove={handleMouseMove} >
       <h1 className='header'>WIREFRAME</h1>
       <Draw input={selectedMap} />
-      <Popup popupVisible={popupVisible} />
+      <Popup popupVisible={popupVisible} handleClick={handleClick} />
     </div>
   );
 }

@@ -10,8 +10,8 @@ const Draw = ({ input }) => {
     const [fileContent, setFileContent] = useState('');
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
+      const fetchData = async () => {
+          try {
               if (input !== 'pyramide' && input !== 'pylone' && input !== 'elem2' && input !== 'flat') {
                 setFileContent(input);
                 return ;
@@ -19,9 +19,9 @@ const Draw = ({ input }) => {
               const response = await fetch(`/${input}.fdf`);
               const text = await response.text();
               setFileContent(text);
-            } catch (error) {
+          } catch (error) {
               console.error('Error reading the file:', error);
-            }
+          }
         };
         fetchData();
 
@@ -50,7 +50,7 @@ const Draw = ({ input }) => {
             canvas.height = 0;
             window.removeEventListener('keydown', handleKeyPress);
           };
-    }, [fileContent]);
+    }, [fileContent, input]);
 
     return (
         <div className='draw'>
