@@ -1,0 +1,24 @@
+input {
+    display: none;
+}
+
+label {
+    display: block;
+}
+
+.icon {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-right: 25px;
+    margin-left: 25px;
+    width: 150px;
+    height: 150px;
+    background-color: #003049;
+    border-radius: 20px;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.icon:hover {
+    transform: scale(1.05);
+    opacity: 0.97;
+}
