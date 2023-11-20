@@ -1,52 +1,60 @@
-class Map {
-  point = [];
-  color = [];
+import Utils from '../draw/Utils';
 
-  constructor(fileContent, utils) {
+class Map {
+  map = [];
+  color = [];
+  utils = new Utils();
+
+  constructor(fileContent) {
     const lines = fileContent.split("\n");
 
-    for (const line of lines) {
-      let split_line = line.split(" ");
-      this.point[utils.getHeight()] = this.point[utils.getHeight()] || [];
-      this.color[utils.getHeight()] = this.color[utils.getHeight()] || [];
-      utils.setWidth(utils.getHeight(), 0);
+    for (let i = 0; i < lines.length; i++) {
+      let split_line = lines[i].split(/\s+/);
+      this.map[i] = this.map[i] || [];
+      this.color[i] = this.color[i] || [];
+      this.utils.setWidth(i, 0);
 
       for (let y = 0; y < split_line.length; y++) {
         let split_val = split_line[y].split(",");
-        this.point[this.point.length - 1][y] = split_val[0];
+        this.map[i][y] = split_val[0];
 
         if (split_val.length === 1) {
-          this.color[this.color.length - 1][y] = '0xD62828';
+          this.color[i][y] = '#D62828';
         } else {
-          this.color[this.color.length - 1][y] = split_val[1];
+          this.color[i][y] = split_val[1];
         }
 
-        utils.incrWidth(this.point.length - 1, 1);
+        this.utils.incrWidth(i, 1);
       }
-      utils.incrHeight(1);
+      this.utils.incrHeight(1);
     }
   }
 
   getPoint(x, y) {
-    return this.point[x][y];
+    return (
+      this.map[x][y]
+    );
   }
 
   getColor(x, y) {
     return (
-      "#" +
-      this.color[x][y].substr(2, 2) +
-      this.color[x][y].substr(4, 2) +
-      this.color[x][y].substr(6, 2)
+      this.color[x][y]
     );
   }
 
-  log(utils) {
-    console.log(utils.getHeight());
-    for (let i = 0; i < this.point.length; i++) {
-      for (let j = 0; j < utils.getWidth(i); j++) {
-        console.log(this.point[i][j] + " " + this.color[i][j]);
-      }
-    }
+  getUtils() {
+    return (
+      this.utils
+    );
+  }
+
+  log() {
+    console.log("height");
+    console.log(this.utils.getHeight());
+    console.log("map: ");
+    console.log(this.point);
+    console.log("color: ");
+    console.log(this.color);
   }
 }
 

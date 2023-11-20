@@ -6,8 +6,7 @@ class Utils {
     x_axis = 25;
     y_axis = 25;
     zoom = 20;
-    
-    constructor() {}
+
     getHeight() {
         return (this.height);
     }

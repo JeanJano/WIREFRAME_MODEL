@@ -12,31 +12,33 @@ function drawLine(arr1, arr2, ctx) {
     ctx.stroke();
 }
 
-function calcIso(x, y, myMap, utils) {
+function calcIso(x, y, myMap) {
     let res = [];
-    let vector = rotate(x, y, myMap.getPoint(x, y), utils);
+    let vector = rotate(x, y, myMap.getPoint(x, y), myMap);
 
     res[0] = (Math.sqrt(2)/2) * (vector[0] - vector[1]);
-    res[1] = (-Math.sqrt(2)/3) * vector[2] - ((1/Math.sqrt(6)) * -(vector[0] + vector[1]));
-    
-    res[0] = Math.round((res[0] + utils.getX_axis()) * utils.getZoom());
-    res[1] = Math.round((res[1] + utils.getY_axis()) * utils.getZoom());
+    res[1] = (Math.sqrt(2)/3) * vector[2] - ((1/Math.sqrt(6)) * -(vector[0] + vector[1]));
+
+    res[0] = Math.round((res[0] + myMap.getUtils().getX_axis()) * myMap.getUtils().getZoom());
+    res[1] = Math.round((res[1] + myMap.getUtils().getY_axis()) * myMap.getUtils().getZoom());
     return (res);
 }
 
-function drawAll(myMap, ctx, utils) {
-    let calcul1;
-    let calcul2;
-    for (let x = 0; x < utils.getHeight(); x++) {
-        for (let y = 0; y < utils.getWidth(x); y++) {
-            calcul1 = calcIso(x, y, myMap, utils);
+function drawAll(myMap, ctx) {
+    let calcul1, calcul2;
+
+    for (let x = 0; x < myMap.getUtils().getHeight(); x++) {
+        for (let y = 0; y < myMap.getUtils().getWidth(x); y++) {
+            calcul1 = calcIso(x, y, myMap);
             ctx.strokeStyle = myMap.getColor(x, y);
-            if (x < utils.getHeight() - 1) {
-                calcul2 = calcIso(x + 1, y, myMap, utils);
+            if (y < myMap.getUtils().getWidth(x) - 1) {
+                calcul2 = calcIso(x, y + 1, myMap);
                 drawLine(calcul1, calcul2, ctx);
             }
-            calcul2 = calcIso(x, y + 1, myMap, utils);
-            drawLine(calcul1, calcul2, ctx);
+            if (x < myMap.getUtils().getHeight() - 1) {
+                calcul2 = calcIso(x + 1, y, myMap);
+                drawLine(calcul1, calcul2, ctx);
+            }
         }
     }
 }
