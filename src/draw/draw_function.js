@@ -16,8 +16,8 @@ function calcIso(x, y, myMap) {
     let res = [];
     let vector = rotate(x, y, myMap.getPoint(x, y), myMap);
 
-    res[0] = (Math.sqrt(2)/2) * (vector[0] - vector[1]);
-    res[1] = (Math.sqrt(2)/3) * vector[2] - ((1/Math.sqrt(6)) * -(vector[0] + vector[1]));
+    res[0] = (Math.sqrt(2)/2) * -(vector[0] - vector[1]);
+    res[1] = (Math.sqrt(2)/3) * -vector[2] - ((1/Math.sqrt(6)) * -(vector[0] + vector[1]));
 
     res[0] = Math.round((res[0] + myMap.getUtils().getX_axis()) * myMap.getUtils().getZoom());
     res[1] = Math.round((res[1] + myMap.getUtils().getY_axis()) * myMap.getUtils().getZoom());
