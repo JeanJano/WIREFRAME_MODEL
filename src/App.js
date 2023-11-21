@@ -2,6 +2,7 @@ import './css/App.css';
 import Draw from './components/Draw';
 import React, { useState } from 'react';
 import NavBar from './components/NavBar'
+import TopBar from './components/TopBar';
 
 const App = () => {
   const [selectedMap, setSelectedMap] = useState("pyramide");
@@ -25,7 +26,7 @@ const App = () => {
 
   return (
     <div onMouseMove={handleMouseMove} >
-      <h1 className='header'>WIREFRAME</h1>
+      <TopBar />
       <Draw input={selectedMap} />
       <NavBar navBarVisible={navBarVisible} handleClick={handleClick} />
     </div>
