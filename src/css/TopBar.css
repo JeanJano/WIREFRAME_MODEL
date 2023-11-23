@@ -26,15 +26,13 @@
     padding-top: 20px;
     border-radius: 18px;
     border: 1px solid #EAE2B7;
-    bottom: 50%;
     opacity: 0;
-    transition: transform 500ms ease-out, opacity 500ms ease-out;
+    transition: opacity 500ms ease-out;
 }
 
 .tooltip:hover {
-    transform: translateY(90%);
     opacity: 1;
-    transition: transform 500ms ease-in, opacity 500ms ease-in;
+    transition: opacity 500ms ease-in;
 }
 
 p {

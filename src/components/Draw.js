@@ -4,6 +4,20 @@ import Map from '../draw/Map';
 import {drawAll, drawBackground} from '../draw/draw_function';
 import KeyPress from '../draw/key';
 
+const nameFile = [
+    "pyramide",
+    "pylone",
+    "elem2",
+    "flat",
+    "10-2",
+    "10-70",
+    "20-60",
+    "50-4",
+    "elem-col",
+    "mars",
+    "t2"
+]
+
 const Draw = ({ input }) => {
     const canvasRef = useRef(null);
     const [fileContent, setFileContent] = useState('');
@@ -11,10 +25,11 @@ const Draw = ({ input }) => {
     useEffect(() => {
       const fetchData = async () => {
           try {
-              if (input !== 'pyramide' && input !== 'pylone' && input !== 'elem2' && input !== 'flat') {
+              if (!nameFile.includes(input)) {
                 setFileContent(input);
                 return ;
               }
+              console.log(input);
               const response = await fetch(`/${input}.fdf`);
               const text = await response.text();
               setFileContent(text);

@@ -7,6 +7,13 @@ const ImageScrollList = ({ handleClick  }) => {
         { url: '/pyramide.png', name: 'pyramide' },
         { url: '/pylone.png', name: 'pylone' },
         { url: '/elem2.png', name: 'elem2' },
+        { url: '/10-2.png', name: '10-2' },
+        { url: '/10-70.png', name: '10-70' },
+        { url: '/20-60.png', name: '20-60' },
+        { url: '/50-4.png', name: '50-4' },
+        { url: '/elem-col.png', name: 'elem-col' },
+        { url: '/t2.png', name: 't2' },
+        { url: '/mars.png', name: 'mars' },
         { url: '/flat.png', name: 'flat' },
     ];
 

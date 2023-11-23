@@ -6,7 +6,9 @@ const TopBar = () => {
     const [hovered, setHovered] = useState(false);
 
     const handleMouseEnter = () => {
-        setHovered(true);
+        setTimeout(() => {
+            setHovered(true);
+        }, 300);
     };
 
     const handleMouseLeave = () => {
@@ -14,7 +16,7 @@ const TopBar = () => {
             setHovered(false);
         }, 600);
     };
-
+    
     return (
         <div className="top-bar">
             <div
