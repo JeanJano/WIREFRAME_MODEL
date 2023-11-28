@@ -1,8 +1,10 @@
 import '../css/draw.css'
 import React, { useRef, useEffect, useState } from 'react'
 import Map from '../draw/Map';
-import {drawAll, drawBackground} from '../draw/draw_function';
+import {drawAll} from '../draw/draw_function';
 import KeyPress from '../draw/key';
+import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 const nameFile = [
     "pyramide",
@@ -16,7 +18,7 @@ const nameFile = [
     "elem-col",
     "mars",
     "t2"
-]
+];
 
 const Draw = ({ input }) => {
     const canvasRef = useRef(null);
@@ -29,7 +31,6 @@ const Draw = ({ input }) => {
                 setFileContent(input);
                 return ;
               }
-              console.log(input);
               const response = await fetch(`/${input}.fdf`);
               const text = await response.text();
               setFileContent(text);
@@ -39,35 +40,57 @@ const Draw = ({ input }) => {
         };
         fetchData();
 
-        const canvas = canvasRef.current;
-        const ctx = canvas.getContext('2d');
-        canvas.height = window.innerHeight;
-        canvas.width = window.innerWidth;
-        ctx.lineWidth = 1;
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: canvasRef.current });
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setClearColor(new THREE.Color("#003049"), 1);
+
+        const handleResize = () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        };
+        window.addEventListener('resize', handleResize);
 
         let myMap;
-        const handleKeyPress = (event) => {
-            KeyPress(event, ctx, canvas, myMap);
-        }
-        window.addEventListener('keydown', handleKeyPress);
+        // const handleKeyPress = (event) => {
+        //     KeyPress(event, ctx, canvas, myMap);
+        // }
+        // window.addEventListener('keydown', handleKeyPress);
         const initializeMap = () => {
             myMap = new Map(fileContent);
-            // myMap.log();
-            drawBackground(ctx, canvas);
-            drawAll(myMap, ctx);
+            drawAll(myMap, scene);
+
+            const boundingBox = new THREE.Box3().setFromObject(scene);
+            const center = boundingBox.getCenter(new THREE.Vector3());
+            const size = boundingBox.getSize(new THREE.Vector3());
+            const maxDim = Math.max(size.x, size.y, size.z);
+
+            camera.position.set(center.x, center.y, center.z + maxDim);
+            controls.target.copy(center);
+            const animate = () => {
+                requestAnimationFrame(animate);
+                controls.update();
+                renderer.render(scene, camera);
+            }
+            animate();
         };
         initializeMap();
-        
+
         return () => {
-            canvas.width = 0;
-            canvas.height = 0;
-            window.removeEventListener('keydown', handleKeyPress);
+            // window.removeEventListener('keydown', handleKeyPress);
+            window.removeEventListener('resize', handleResize);
+            controls.dispose();
           };
     }, [fileContent, input]);
 
     return (
         <div className='draw'>
-            <canvas ref={canvasRef} />
+            <canvas ref={canvasRef} className='webgl' />
         </div>
     );
 }

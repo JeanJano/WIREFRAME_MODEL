@@ -1,6 +1,6 @@
-import { drawAll, drawBackground } from './draw_function';
+import { drawAll } from './draw_function';
 
-function KeyPress(event, ctx, canvas, myMap) {
+function KeyPress(event, canvas, myMap) {
     // rotation: q w e 
     if (event.keyCode === 81 || event.keyCode === 87 || event.keyCode === 69 || event.keyCode === 65 || event.keyCode === 83 || event.keyCode === 68) {
         if (event.keyCode === 81 || event.keyCode === 65)
@@ -35,8 +35,8 @@ function KeyPress(event, ctx, canvas, myMap) {
         else
             myMap.getUtils().incrY_axisPlus(2);
     }
-    drawBackground(ctx, canvas);
-    drawAll(myMap, ctx);
+    // drawBackground(ctx, canvas);
+    drawAll(myMap);
 }
 
 export default KeyPress;
