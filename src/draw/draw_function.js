@@ -14,7 +14,7 @@ function drawAll(myMap, scene) {
                 const line = new THREE.Line(lineGeometry, lineMaterial);
                 drawGroup.add(line);
             }
-            if (x < myMap.getUtils().getHeight() - 1) {
+            if (x < myMap.getUtils().getHeight() - 2) {
                 const lineGeometry = new THREE.BufferGeometry().setFromPoints([
                     new THREE.Vector3(x, y, myMap.getPoint(x, y)),
                     new THREE.Vector3(x + 1, y, myMap.getPoint(x + 1, y)),

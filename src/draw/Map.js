@@ -14,14 +14,14 @@ class Map {
       this.color[i] = this.color[i] || [];
       this.utils.setWidth(i, 0);
 
-      for (let y = 0; y < split_line.length; y++) {
-        let split_val = split_line[y].split(",");
-        this.map[i][y] = split_val[0];
+      for (let j = 0; j < split_line.length; j++) {
+        let split_val = split_line[j].split(",");
+        this.map[i][j] = split_val[0];
 
         if (split_val.length === 1) {
-          this.color[i][y] = '#D62828';
+          this.color[i][j] = '#D62828';
         } else {
-          this.color[i][y] = split_val[1];
+          this.color[i][j] = split_val[1];
         }
 
         this.utils.incrWidth(i, 1);
