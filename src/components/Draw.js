@@ -2,7 +2,6 @@ import '../css/draw.css'
 import React, { useRef, useEffect, useState } from 'react'
 import Map from '../draw/Map';
 import {drawAll} from '../draw/draw_function';
-import KeyPress from '../draw/key';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
@@ -57,10 +56,6 @@ const Draw = ({ input }) => {
         window.addEventListener('resize', handleResize);
 
         let myMap;
-        // const handleKeyPress = (event) => {
-        //     KeyPress(event, ctx, canvas, myMap);
-        // }
-        // window.addEventListener('keydown', handleKeyPress);
         const initializeMap = () => {
             myMap = new Map(fileContent);
             drawAll(myMap, scene);
